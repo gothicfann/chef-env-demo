@@ -1,4 +1,4 @@
-# chef-env-demo
+# terraform-chef-environment
 
 This terraform module creates single instance demo chef-server/chef-dk environment in Google Cloud Platform.
 Chef-repo is configured under `/root` directory.
