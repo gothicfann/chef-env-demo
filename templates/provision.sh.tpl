@@ -5,8 +5,7 @@ yum install git -y
 rpm -Uvh ${chefwork_rpm}
 echo 'eval "$(chef shell-init bash)"' >> /root/.bashrc
 echo 'export PATH="/opt/chefdk/embedded/bin:$PATH"' >> /root/.bashrc && source /root/.bashrc
-cd /root/
-chef generate app chef-repo
+(cd /root/ && chef generate app chef-repo)
 mkdir -p /root/chef-repo/.chef
 echo '.chef' >> /root/chef-repo/.gitignore
 
@@ -25,9 +24,3 @@ opscode-push-jobs-server-ctl reconfigure
 chef-server-ctl install opscode-reporting
 chef-server-ctl reconfigure
 opscode-reporting-ctl reconfigure --accept-license
-
-
-# Checking if everything is working properly
-cd /root/chef-repo
-knife ssl fetch
-knife client list

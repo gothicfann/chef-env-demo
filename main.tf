@@ -14,7 +14,7 @@ resource "google_compute_firewall" "chefserver" {
 
 # Chef Server provisioning
 resource "google_compute_instance" "chefserver" {
-  name         = "chefserver"
+  name         = "${var.hostname}"
   machine_type = "n1-standard-2"
   zone         = "us-central1-a"
   allow_stopping_for_update = true
@@ -69,8 +69,8 @@ resource "google_compute_instance" "chefserver" {
     inline = [
       "sudo chmod +x /tmp/provision.sh",
       "sudo /tmp/provision.sh",
-      "sudo mv /tmp/knife.rb /root/chef-repo/.chef/",
       "sudo rm /tmp/provision.sh",
+      "sudo mv /tmp/knife.rb /root/chef-repo/.chef/",
     ]
 
     connection {

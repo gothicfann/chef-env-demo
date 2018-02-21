@@ -3,6 +3,8 @@ variable "account_file" { default = "./secret_files/account.json" }
 variable "project_id" { default = "chef-project-195708" }
 variable "region" { default = "us-central1" }
 
+# Chef server
+variable "hostname" { default = "chefserver" }
 
 # GCE sshinfo
 variable "ssh_user" { default = "ikorpashvili" }

@@ -5,6 +5,7 @@ data "template_file" "knife" {
     chef_username = "${var.chef_username}"
     org_short_name = "${var.org_short_name}"
     project_id = "${var.project_id}"
+    chef_hostname = "${var.hostname}"
   }
 }
 
