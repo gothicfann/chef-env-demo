@@ -15,7 +15,7 @@ resource "google_compute_firewall" "chefserver" {
 # Chef Server provisioning
 resource "google_compute_instance" "chefserver" {
   name         = "${var.hostname}"
-  machine_type = "n1-standard-2"
+  machine_type = "${var.machine_type}"
   zone         = "us-central1-a"
   allow_stopping_for_update = true
   tags = ["chefserver"]
