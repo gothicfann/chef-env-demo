@@ -39,44 +39,9 @@ resource "google_compute_instance" "chefserver" {
     block-project-ssh-keys = true
   }
 
+  metadata_startup_script = "${data.template_file.provision.rendered}"
+
   service_account {
     scopes = ["userinfo-email", "compute-ro", "storage-ro"]
-  }
-
-  provisioner "file" {
-    content = "${data.template_file.provision.rendered}"
-    destination = "/tmp/provision.sh"
-
-    connection {
-      type        = "ssh"
-      user        = "${var.ssh_user}"
-      private_key = "${file(var.ssh_private_key)}"
-    }
-  }
-
-  provisioner "file" {
-    content = "${data.template_file.knife.rendered}"
-    destination = "/tmp/knife.rb"
-
-    connection {
-      type        = "ssh"
-      user        = "${var.ssh_user}"
-      private_key = "${file(var.ssh_private_key)}"
-    }
-  }
-
-  provisioner "remote-exec" {
-    inline = [
-      "sudo chmod +x /tmp/provision.sh",
-      "sudo /tmp/provision.sh",
-      "sudo rm /tmp/provision.sh",
-      "sudo mv /tmp/knife.rb /root/chef-repo/.chef/",
-    ]
-
-    connection {
-      type        = "ssh"
-      user        = "${var.ssh_user}"
-      private_key = "${file(var.ssh_private_key)}"
-    }
   }
 }

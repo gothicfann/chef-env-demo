@@ -1,4 +1,4 @@
-data "template_file" "knife" {
+data "template_file" "knife_rb" {
   template = "${file("templates/knife.rb.tpl")}"
 
   vars {
@@ -22,5 +22,6 @@ data "template_file" "provision" {
     chef_password = "${var.chef_password}"
     org_short_name = "${var.org_short_name}"
     org_full_name = "${var.org_full_name}"
+    knife_rb = "${data.template_file.knife_rb.rendered}"
   }
 }

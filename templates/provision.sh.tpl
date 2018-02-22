@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Install chef DK
+sleep 20
 yum install git -y
 rpm -Uvh ${chefwork_rpm}
 echo 'eval "$(chef shell-init bash)"' >> /root/.bashrc
@@ -8,9 +8,6 @@ echo 'export PATH="/opt/chefdk/embedded/bin:$PATH"' >> /root/.bashrc && source /
 (cd /root/ && chef generate app chef-repo)
 mkdir -p /root/chef-repo/.chef
 echo '.chef' >> /root/chef-repo/.gitignore
-
-
-# Install chef server
 rpm -Uvh ${chefserver_rpm}
 chef-server-ctl reconfigure
 chef-server-ctl user-create ${chef_username} ${chef_fname} ${chef_lname} ${chef_email} '${chef_password}' --filename ~/chef-repo/.chef/${chef_username}.pem
@@ -24,3 +21,6 @@ opscode-push-jobs-server-ctl reconfigure
 chef-server-ctl install opscode-reporting
 chef-server-ctl reconfigure
 opscode-reporting-ctl reconfigure --accept-license
+echo '${knife_rb}' > /root/chef-repo/.chef/knife.rb
+(cd /root/chef-repo/ && knife ssl fetch)
+exit 0
