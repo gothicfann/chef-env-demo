@@ -7,4 +7,3 @@ Chef-repo is configured under `/root` directory.
 
 1. Change variable values in the `variables.tf` file and just run `terraform apply` command.
 2. It will take about 30 mins to fully setup chef environment on the machine. You can use ssh and monitor `/var/log/messages` startup-script logs to be sure every step is done.
-3. Its done!
